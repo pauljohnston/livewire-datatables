@@ -14,6 +14,7 @@ class CreateDummyModelsTable extends Migration
             $table->string('category', 16);
             $table->text('body');
             $table->boolean('flag')->nullable();
+            $table->string('image', 255)->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamps();
         });

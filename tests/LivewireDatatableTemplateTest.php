@@ -23,9 +23,10 @@ class LivewireDatatableTemplateTest extends TestCase
             2 => 'Category',
             3 => 'Body',
             4 => 'Flag',
-            5 => 'Expires_at',
-            6 => 'Created_at',
-            7 => 'Updated_at',
+            5 => 'Image',
+            6 => 'Expires_at',
+            7 => 'Created_at',
+            8 => 'Updated_at',
         ], collect($subject->columns)->map->label->toArray());
     }
 
@@ -100,9 +101,10 @@ class LivewireDatatableTemplateTest extends TestCase
             2 => 'Category',
             3 => 'Body',
             4 => 'Flag',
-            5 => 'Expires_at',
-            6 => 'Created_at',
-            7 => 'Updated_at',
+            5 => 'Image',
+            6 => 'Expires_at',
+            7 => 'Created_at',
+            8 => 'Updated_at',
         ], collect($subject->columns)->map->label->toArray());
     }
 
@@ -117,7 +119,7 @@ class LivewireDatatableTemplateTest extends TestCase
         ])->assertDontSee('HIDE-THIS');
 
         $this->assertIsArray($subject->columns);
-        $this->assertCount(8, $subject->columns);
+        $this->assertCount(9, $subject->columns);
     }
 
     /** @test */

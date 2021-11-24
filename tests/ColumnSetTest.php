@@ -15,7 +15,7 @@ class ColumnSetTest extends TestCase
 
         $subject = ColumnSet::build($model);
 
-        $this->assertCount(8, $subject->columns());
+        $this->assertCount(9, $subject->columns());
 
         $subject->columns()->each(function ($column) {
             $this->assertIsObject($column, Column::class);
@@ -48,10 +48,11 @@ class ColumnSetTest extends TestCase
             ['Category', 1, 'category'],
             ['Body', 2, 'body'],
             ['Flag', 3, 'flag'],
-            ['Expires_at', 4, 'expires_at'],
-            ['Updated_at', 5, 'updated_at'],
-            ['Created_at', 6, 'created_at'],
-            ['Id', 7, 'id'],
+            ['Image', 4, 'image'],
+            ['Expires_at', 5, 'expires_at'],
+            ['Updated_at', 6, 'updated_at'],
+            ['Created_at', 7, 'created_at'],
+            ['Id', 8, 'id'],
         ];
     }
 
@@ -64,9 +65,9 @@ class ColumnSetTest extends TestCase
             ->exclude(['id', 'body'])
             ->columns();
 
-        $this->assertCount(6, $subject);
+        $this->assertCount(7, $subject);
 
-        $this->assertArrayNotHasKey(7, $subject);
+        $this->assertArrayNotHasKey(8, $subject);
         $this->assertArrayNotHasKey(2, $subject);
     }
 

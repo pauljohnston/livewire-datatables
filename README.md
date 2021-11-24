@@ -113,6 +113,7 @@ There are additional specific types of Column; ```NumberColumn```, ```DateColumn
 |BooleanColumn| Values will be automatically formatted to a yes/no icon, filters will be yes/no|
 |DateColumn| Values will be automatically formatted to the default date format. Filters will be a date range|
 |TimeColumn| Values will be automatically formatted to the default time format. Filters will be a time range|
+|ImageColumn| url to an image file, base url will be used unless config value is set|
 ___
 
 ```php
@@ -149,7 +150,10 @@ class ComplexDemoTable extends LivewireDatatable
             DateColumn::name('dob')
                 ->label('DOB')
                 ->filterable()
-                ->hide()
+                ->hide(),
+
+            ImageColumn::name('photo')
+                ->label('Photo'),
         ];
     }
 }

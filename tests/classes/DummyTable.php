@@ -6,6 +6,7 @@ use Mediconesystems\LivewireDatatables\BooleanColumn;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+use Mediconesystems\LivewireDatatables\ImageColumn;
 use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\Tests\Models\DummyModel;
 
@@ -33,6 +34,8 @@ class DummyTable extends LivewireDatatable
 
             BooleanColumn::name('flag')
                 ->filterable(),
+
+            ImageColumn::name('image'),
 
             DateColumn::name('expires_at')
                 ->label('Expiry')

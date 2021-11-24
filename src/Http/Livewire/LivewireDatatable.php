@@ -57,6 +57,11 @@ class LivewireDatatable extends Component
     protected $query;
     protected $listeners = ['refreshLivewireDatatable'];
 
+    public function updatedSearch()
+    {
+        $this->page = 1;
+    }
+
     public function mount(
         $model = null,
         $include = [],
@@ -377,7 +382,7 @@ class LivewireDatatable extends Component
                 return Str::before($column['select'], ' AS ');
                 break;
 
-             default:
+            default:
                 return $dbTable == 'pgsql'
                 ? new Expression('"'.$column['name'].'"')
                 : new Expression('`'.$column['name'].'`');
@@ -464,7 +469,7 @@ class LivewireDatatable extends Component
 
     public function doNumberFilterStart($index, $start)
     {
-        $this->activeNumberFilters[$index]['start'] = (int) $start;
+        $this->activeNumberFilters[$index]['start'] = $start ? (int) $start : null;
         $this->clearEmptyNumberFilter($index);
         $this->page = 1;
     }
@@ -736,8 +741,6 @@ class LivewireDatatable extends Component
             }
         });
 
-        $this->page = 1;
-
         return $this;
     }
 
@@ -846,10 +849,11 @@ class LivewireDatatable extends Component
                         isset($filter['start']) ? $filter['start'] : 0,
                         isset($filter['end']) ? $filter['end'] : 9999999,
                     ])
-                        ?? $query->whereRaw($this->getColumnField($index)[0].' BETWEEN ? AND ?', [
-                            isset($filter['start']) ? $filter['start'] : 0,
-                            isset($filter['end']) ? $filter['end'] : 9999999,
-                        ]);
+                        ?? $query->when(isset($filter['start']), function ($query) use ($filter, $index) {
+                            $query->whereRaw($this->getColumnField($index)[0] . ' >= ?', $filter['start']);
+                        })->when(isset($filter['end']), function ($query) use ($filter, $index) {
+                            $query->whereRaw($this->getColumnField($index)[0] . ' <= ?', $filter['end']);
+                        });
                 }
             }
         });
@@ -1007,6 +1011,7 @@ class LivewireDatatable extends Component
 
     public function render()
     {
+        $this->emit('refreshDynamic');
         return view('datatables::datatable');
     }
 

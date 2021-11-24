@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator;
+use Illuminate\Http\UploadedFile;
 use Mediconesystems\LivewireDatatables\Tests\Models\DummyBelongsToManyModel;
 use Mediconesystems\LivewireDatatables\Tests\Models\DummyHasManyModel;
 use Mediconesystems\LivewireDatatables\Tests\Models\DummyHasOneModel;
@@ -14,6 +15,7 @@ $factory->define(DummyModel::class, function (Generator $faker) {
         'category' => $faker->word,
         'body' => $faker->paragraph,
         'flag' => $faker->boolean(),
+        'image' => UploadedFile::fake()->image('photo.jpg'),
         'expires_at' => $faker->dateTimeBetween('now', '+ 4 weeks'),
     ];
 });
