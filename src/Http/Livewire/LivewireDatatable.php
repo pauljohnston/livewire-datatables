@@ -1003,7 +1003,7 @@ class LivewireDatatable extends Component
 
         if ($value instanceof View) {
             return $value
-                ->with(['value' => str_ireplace($string, view('datatables::highlight', ['slot' => $output]), $value->gatherData()['value'] ?? $value->gatherData()['slot'])]);
+                ->with(['value' => str_ireplace($string, view('datatables::highlight', ['slot' => $output]), $value->gatherData()['value'] ?? (!empty($value->gatherData()['slot']) ? $value->gatherData()['slot'] : ''))]);
         }
 
         return str_ireplace($string, view('datatables::highlight', ['slot' => $output]), $value);
